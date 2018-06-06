@@ -52,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
     public static final int STATUS_OK = 1;
     public static final int STATUS_ERROR = 2;
     private static final int PERMISSIONS_REQUEST_READ_CONTACTS = 100;
-    //private static final String DOWNLOAD_URL = "https://www.dropbox.com/s/2yo49fuitmdtw9j/content.json?dl=1";
     private static final String DOWNLOAD_URL = "https://www.dropbox.com/s/zdmgkyi3hce55j8/mobile.json?dl=1";
     ListView lvDanhBa;
     TextView text_list, btnUpdate;
@@ -78,7 +77,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main_splash);
         getSupportActionBar().hide();
         firstInit();
-
     }
 
     public void firstInit() {
@@ -96,15 +94,13 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setIcon(R.mipmap.ic_launcher);
         loadAd();
         init();
-
     }
 
     private void loadAd() {
-        String idAdmob ="ca-app-pub-9078637596840810~3533728208";
-        String idBanner ="ca-app-pub-3940256099942544/6300978111";
-        String idInterstitial = "ca-app-pub-3940256099942544/1033173712";
-        Utils.LOG("##################mLaucher:"+RMS.getInstance().getNumberOfLaunchApp());
-        if (RMS.getInstance().getNumberOfLaunchApp() != 0) {
+        String idAdmob ="ca-app-pub-8530721204937057~3620432071";
+        String idBanner ="ca-app-pub-8530721204937057/6773757768";
+        String idInterstitial = "ca-app-pub-8530721204937057/4518580771";
+        if (RMS.getInstance().getNumberOfDownloadData() != 0) {
             String content = Utils.readFile(mDataPath);
             try {
                 JSONObject jsonObject = new JSONObject(content);
@@ -136,10 +132,8 @@ public class MainActivity extends AppCompatActivity {
             idBanner = arrBanner[0];
             idInterstitial = arrInterstitial[0];
         }
+        // init banner admob
         MobileAds.initialize(this, idAdmob);
-        mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId(idInterstitial);
-        mInterstitialAd.loadAd(new AdRequest.Builder().build());
         RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.adView);
         mAdView = new AdView(MainActivity.this);
         mAdView.setAdSize(AdSize.BANNER);
@@ -147,20 +141,16 @@ public class MainActivity extends AppCompatActivity {
         relativeLayout.addView(mAdView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
+        // init mInterstitialAd
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId(idInterstitial);
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
     }
 
     public void init() {
         addControls();
         addEvents();
         checkPermission();
-//        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-//            //showContact();
-//            loadContact = new LoadContact();
-//            loadContact.execute();
-//            Utils.LOG("@@@@@@@@@@@@@@@@@Android < 6.0");
-//        }
-//        checkPermission();
-//        Utils.LOG("@@@@@@@@@@@@@@@@@Android => 6.0");
     }
 
     public void updateContact(String oldPhoneNumber, String newPhoneNumber) {
@@ -183,8 +173,6 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-
-
     }
 
     @Override
@@ -330,15 +318,11 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent1 = new Intent(MainActivity.this, CodeActivity.class);
                 startActivity(intent1);
                 break;
-            case R.id.text_search:
-                Intent intent2 = new Intent(MainActivity.this, Search.class);
-                startActivity(intent2);
-                break;
             case R.id.btnShare:
                 ShareLinkContent content = new ShareLinkContent.Builder()
                         .setContentUrl(Uri.parse("https://vnict.net"))
                         .setShareHashtag(new ShareHashtag.Builder()
-                                .setHashtag("#AndroidCoBan.Com")
+                                .setHashtag("#Test")
                                 .build())
                         .build();
                 ShareDialog.show(this, content);
@@ -370,7 +354,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
                 b.create().show();
-                //Toast.makeText(this, "Until you grant the permission, we canot display the names", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -391,10 +374,10 @@ public class MainActivity extends AppCompatActivity {
         Uri uri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
         Cursor cursor = getContentResolver().query(uri, null, null, null, null);
         dsDanhBa.clear();
-        if (RMS.getInstance().getNumberOfLaunchApp() != 0) {
+        if (RMS.getInstance().getNumberOfDownloadData() != 0) {
 
             Utils.LOG("Show Contact - Loading Updated Data: ");
-            Utils.LOG("Count:"+ RMS.getInstance().getNumberOfLaunchApp());
+            Utils.LOG("Count:"+ RMS.getInstance().getNumberOfDownloadData());
             loadData();
         } else {
             loadLocalData();
@@ -412,14 +395,11 @@ public class MainActivity extends AppCompatActivity {
             String phone = cursor.getString(vtTenCotPhone);
             Contact contact = new Contact(id, name, phone);
             contact.setTransnumber(CommonCode.ChuanHoaChuoi(contact));
-            //listCode = CommonCode.TachMaVungTheoDoDai(listOldCode, listNewCode);
             if (CommonCode.CheckChangingPhone(contact, listCode)) {
                 contact.setNewphonenumber(CommonCode.ChangingPhone(contact, listCode));
                 dsDanhBa.add(contact);
             }
         }
-        //adapterDanhBa.notifyDataSetChanged();
-
     }
     private void updateContactWithAd() {
         dsDanhBaChecked = new ArrayList<Contact>();
@@ -529,7 +509,7 @@ public class MainActivity extends AppCompatActivity {
             Utils.LOG("Download status " + s);
             if (s == STATUS_OK) {
                 Utils.LOG("Loading Updated Data....................");
-                RMS.getInstance().increaseNumberOfLaunchApp();
+                RMS.getInstance().increaseNumberOfDownloadData();
                 start();
 
 
@@ -584,6 +564,4 @@ public class MainActivity extends AppCompatActivity {
             mAdView.resume();
         }
     }
-
-
 }

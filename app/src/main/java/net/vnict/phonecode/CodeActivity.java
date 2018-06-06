@@ -45,7 +45,7 @@ public class CodeActivity extends AppCompatActivity {
         mDataPath = getExternalFilesDir(null).getAbsolutePath() + "/" + DATA_FILE_NAME;
         String content = Utils.readFile(mDataPath);
         Utils.LOG(content);
-        if (RMS.getInstance().getNumberOfLaunchApp() == 0) {
+        if (RMS.getInstance().getNumberOfDownloadData() == 0) {
             arrProvider = getResources().getStringArray(R.array.provinces);
             arrOldCode = getResources().getStringArray(R.array.old_prefixes);
             arrNewCode = getResources().getStringArray(R.array.new_prefixes);
@@ -100,8 +100,8 @@ public class CodeActivity extends AppCompatActivity {
         String idAdmob ="ca-app-pub-9078637596840810~3533728208";
         String idBanner ="ca-app-pub-3940256099942544/6300978111";
         String idInterstitial = "ca-app-pub-3940256099942544/1033173712";
-        Utils.LOG("##################mLaucher:"+RMS.getInstance().getNumberOfLaunchApp());
-        if (RMS.getInstance().getNumberOfLaunchApp() != 0) {
+        Utils.LOG("##################mLaucher:"+RMS.getInstance().getNumberOfDownloadData());
+        if (RMS.getInstance().getNumberOfDownloadData() != 0) {
             String content = Utils.readFile(mDataPath);
             try {
                 JSONObject jsonObject = new JSONObject(content);
