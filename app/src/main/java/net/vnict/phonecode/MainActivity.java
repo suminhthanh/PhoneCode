@@ -198,26 +198,6 @@ public class MainActivity extends AppCompatActivity {
         });
         mInterstitialAd.setAdListener(new AdListener() {
             @Override
-            public void onAdLoaded() {
-                mIsLoadAd = true;
-            }
-
-            @Override
-            public void onAdFailedToLoad(int errorCode) {
-                mIsLoadAd = false;
-            }
-
-            @Override
-            public void onAdOpened() {
-
-            }
-
-            @Override
-            public void onAdLeftApplication() {
-
-            }
-
-            @Override
             public void onAdClosed() {
                 updateContactWithAd();
             }
@@ -289,11 +269,13 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                       //  if (mInterstitialAd.isLoaded() && mIsLoadAd) {
-                        if (mInterstitialAd.isLoaded() && mIsLoadAd)
+                        if (mInterstitialAd.isLoaded())
                         {
                             mInterstitialAd.show();
+                            mInterstitialAd.loadAd(new AdRequest.Builder().build());
                         } else {
                             updateContactWithAd();
+                            mInterstitialAd.loadAd(new AdRequest.Builder().build());
                         }
 
                     }
@@ -301,7 +283,7 @@ public class MainActivity extends AppCompatActivity {
                 b.setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if (mInterstitialAd.isLoaded() && mIsLoadAd) {
+                        if (mInterstitialAd.isLoaded()) {
                             mInterstitialAd.show();
                         }
                         dialog.cancel();
@@ -310,8 +292,6 @@ public class MainActivity extends AppCompatActivity {
                 b.create().show();
                 break;
             case R.id.text_about:
-//                Intent intent = new Intent(MainActivity.this, About.class);
-//                startActivity(intent);
                 new AlertDialog.Builder(this).setTitle(R.string.about).setMessage(R.string.about_description).setIcon(R.mipmap.ic_launcher).create().show();
                 break;
             case R.id.text_code:

@@ -5,8 +5,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
@@ -89,18 +92,20 @@ public class CodeActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                if(mInterstitialAd.isLoaded())
+                if (mInterstitialAd.isLoaded())
                 {
                     mInterstitialAd.show();
+                    mInterstitialAd.loadAd(new AdRequest.Builder().build());
                 }
+                else
+                    mInterstitialAd.loadAd(new AdRequest.Builder().build());
             }
         });
-    }
+     }
     private void loadAd() {
-        String idAdmob ="ca-app-pub-9078637596840810~3533728208";
-        String idBanner ="ca-app-pub-3940256099942544/6300978111";
-        String idInterstitial = "ca-app-pub-3940256099942544/1033173712";
-        Utils.LOG("##################mLaucher:"+RMS.getInstance().getNumberOfDownloadData());
+        String idAdmob ="ca-app-pub-8530721204937057~3620432071";
+        String idBanner ="ca-app-pub-8530721204937057/6773757768";
+        String idInterstitial = "ca-app-pub-8530721204937057/4518580771";
         if (RMS.getInstance().getNumberOfDownloadData() != 0) {
             String content = Utils.readFile(mDataPath);
             try {
@@ -132,15 +137,19 @@ public class CodeActivity extends AppCompatActivity {
             idAdmob = arrIdAdmob[0];
             idBanner = arrBanner[0];
             idInterstitial = arrInterstitial[0];
-            Utils.LOG("Load id tu local array ");
         }
+        // init banner admob
         MobileAds.initialize(this, idAdmob);
+        RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.adView);
+        mAdView = new AdView(CodeActivity.this);
+        mAdView.setAdSize(AdSize.BANNER);
+        mAdView.setAdUnitId(idBanner);
+        relativeLayout.addView(mAdView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+        // init mInterstitialAd
         mInterstitialAd = new InterstitialAd(this);
         mInterstitialAd.setAdUnitId(idInterstitial);
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
-        mAdView = findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
-
     }
 }

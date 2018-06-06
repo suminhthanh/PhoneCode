@@ -8,7 +8,6 @@
     android:paddingLeft="@dimen/pad_dimen"
     android:paddingRight="@dimen/pad_dimen"
     android:paddingTop="0.0dip"
-    android:id="@+id/ad_layout"
     tools:context="net.vnict.phonecode.MainActivity">
 
     <RelativeLayout
@@ -85,16 +84,16 @@
                     android:text="@string/mobile_code"
                     android:textSize="12sp" />
 
-                <TextView
-                    android:id="@+id/text_search"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="8.0dip"
-                    android:drawableTop="@android:drawable/ic_search_category_default"
-                    android:onClick="onClick"
-                    android:text="@string/search"
-                    android:textSize="12sp" />
+                <!--<TextView-->
+                    <!--android:id="@+id/text_search"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_gravity="center"-->
+                    <!--android:layout_marginTop="8.0dip"-->
+                    <!--android:drawableTop="@android:drawable/ic_search_category_default"-->
+                    <!--android:onClick="onClick"-->
+                    <!--android:text="@string/search"-->
+                    <!--android:textSize="12sp" />-->
 
                 <TextView
                     android:id="@+id/btnShare"
