@@ -1,4 +1,4 @@
-package net.vnict.phonecode;
+package net.vnict.phonecode.utils;
 
 import android.support.annotation.NonNull;
 

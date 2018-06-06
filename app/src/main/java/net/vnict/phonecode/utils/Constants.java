@@ -1,4 +1,4 @@
-package net.vnict.phonecode;
+package net.vnict.phonecode.utils;
 
 public class Constants {
     public static final String FIRST_COLUMN = "First";

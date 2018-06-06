@@ -21,9 +21,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static net.vnict.phonecode.Constants.FIRST_COLUMN;
-import static net.vnict.phonecode.Constants.SECOND_COLUMN;
-import static net.vnict.phonecode.Constants.THIRD_COLUMN;
+import static net.vnict.phonecode.utils.Constants.FIRST_COLUMN;
+import static net.vnict.phonecode.utils.Constants.SECOND_COLUMN;
+import static net.vnict.phonecode.utils.Constants.THIRD_COLUMN;
 
 public class CodeActivity extends AppCompatActivity {
     String[] arrProvider, arrOldCode, arrNewCode, arrBanner, arrInterstitial, arrIdAdmob;

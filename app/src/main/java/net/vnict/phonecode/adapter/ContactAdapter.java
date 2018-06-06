@@ -4,9 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.media.Image;
 import android.net.Uri;
-import android.os.Build;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -21,9 +19,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.android.gms.ads.formats.NativeAd;
-
-import net.vnict.phonecode.CommonCode;
+import net.vnict.phonecode.utils.CommonCode;
 import net.vnict.phonecode.R;
 import net.vnict.phonecode.model.Contact;
 import net.vnict.phonecode.utils.Utils;
