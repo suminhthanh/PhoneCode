@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Đổi đầu số di động</string>
+    <string name="about">Giới thiệu</string>
+    <string name="about_description">"Bộ TT-TT vừa công bố chi tiết các đầu số thuê bao di động 11 số sẽ chuyển thành 10 số đến từ 5 nhà mạng gồm Mobifone, Viettel, Vinaphone, Vietnamobile và Gtel bắt đầu từ ngày 15/09/2018. Các nhà mạng lớn như Mobifone, Vinaphone, Viettel lần lượt có đầu số chuyển đổi mới là 07x, 08x và 03x, hai nhà mạng Vietnamobile và Gtel dùng chung đầu số 05x.
+Việc chuyển đổi bắt đầu từ ngày 15/9/2018 và kết thúc vào ngày 30/6/2019. Khi tiến hành chuyển đổi các nhà mạng sẽ phải quay số song song (duy trì cả số cũ và số mới) từ ngày 15/9/2018 đến ngày 14/11/2018 và duy trì âm báo bằng tiếng Việt và tiếng Anh."</string>
+    <string name="all_province">Cả nước</string>
+    <string name="code">Bảng mã</string>
+    <string name="confirm_update">Bạn có chắc chắn muốn cập nhật danh bạ ?</string>
+    <string name="load_contact">Đã tìm thấy các số di động trong danh bạ</string>
+    <string name="no_contact">Không tìm thấy số điện thoại di động có mã mạng cần chuyển đổi</string>
+    <string name="title">Đổi đầu số di động</string>
+    <string name="update">Cập nhật</string>
+    <string name="update_result_ok">Đã cập nhật danh bạ</string>
+    <string name="notice">Chú ý</string>
+    <string name="no_selected">Chưa có danh bạ nào được chọn</string>
+    <string name="seleted_all">Chọn tất cả</string>
+    <string name="file_name">mobile.json</string>
+    <string name="list_code">Danh sách các nhà mạng</string>
+    <string name="mobile_code">Mã mạng</string>
+    <string name="search">Tìm kiếm</string>
+    <string name="share">Chia sẽ</string>
+    <string name="version">Version 1.0</string>
+</resources>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="new_prefixes">
+        <item>070</item>
+        <item>079</item>
+        <item>077</item>
+        <item>076</item>
+        <item>078</item>
+        <item>083</item>
+        <item>084</item>
+        <item>085</item>
+        <item>081</item>
+        <item>082</item>
+        <item>032</item>
+        <item>033</item>
+        <item>034</item>
+        <item>035</item>
+        <item>036</item>
+        <item>037</item>
+        <item>038</item>
+        <item>039</item>
+        <item>056</item>
+        <item>058</item>
+        <item>059</item>
+    </string-array>
+    <string-array name="old_prefixes">
+        <item>0120</item>
+        <item>0121</item>
+        <item>0122</item>
+        <item>0126</item>
+        <item>0128</item>
+        <item>0123</item>
+        <item>0124</item>
+        <item>0125</item>
+        <item>0127</item>
+        <item>0129</item>
+        <item>0162</item>
+        <item>0163</item>
+        <item>0164</item>
+        <item>0165</item>
+        <item>0166</item>
+        <item>0167</item>
+        <item>0168</item>
+        <item>0169</item>
+        <item>0186</item>
+        <item>0188</item>
+        <item>0199</item>
+    </string-array>
+    <string-array name="search">
+        <item>Mobifone 0120 -> 070</item>
+        <item>Mobifone 0121 -> 079</item>
+        <item>Mobifone 0122 -> 077</item>
+        <item>Mobifone 0126 -> 076</item>
+        <item>Mobifone 0128 -> 078</item>
+        <item>Vinaphone 0123 -> 083</item>
+        <item>Vinaphone 0124 -> 084</item>
+        <item>Vinaphone 0125 -> 085</item>
+        <item>Vinaphone 0127 -> 081</item>
+        <item>Vinaphone 0129 -> 082</item>
+        <item>Viettel 0162 -> 082</item>
+        <item>Viettel 0163 -> 033</item>
+        <item>Viettel 0164 -> 034</item>
+        <item>Viettel 0165 -> 035</item>
+        <item>Viettel 0166 -> 036</item>
+        <item>Viettel 0167 -> 037</item>
+        <item>Viettel 0168 -> 038</item>
+        <item>Viettel 0169 -> 039</item>
+        <item>Vietnamobile 0186 -> 056</item>
+        <item>Vietnamobile 0188 -> 058</item>
+        <item>Gmobile 0199 -> 059</item>
+    </string-array>
+    <string-array name="provinces">
+    <item>Mobifone</item>
+    <item>Mobifone</item>
+    <item>Mobifone</item>
+    <item>Mobifone</item>
+    <item>Mobifone</item>
+    <item>Vinaphone</item>
+    <item>Vinaphone</item>
+    <item>Vinaphone</item>
+    <item>Vinaphone</item>
+    <item>Vinaphone</item>
+    <item>Viettel</item>
+    <item>Viettel</item>
+    <item>Viettel</item>
+    <item>Viettel</item>
+    <item>Viettel</item>
+    <item>Viettel</item>
+    <item>Viettel</item>
+    <item>Viettel</item>
+    <item>Vietnamobile</item>
+    <item>Vietnamobile</item>
+    <item>Gmobile</item>
+    </string-array>
+    <string-array name="arrBanner">
+        <item>ca-app-pub-9078637596840810/5409507539</item>
+    </string-array>
+    <string-array name="idAdmob">
+        <item>ca-app-pub-3940256099942544~3347511713</item>
+    </string-array>
+    <string-array name="interstitial">
+        <item>ca-app-pub-3940256099942544/1033173712</item>
+    </string-array>
+</resources>
+
+

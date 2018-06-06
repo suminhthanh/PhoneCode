@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="0.0dip"
+    android:paddingLeft="@dimen/pad_dimen"
+    android:paddingRight="@dimen/pad_dimen"
+    android:paddingTop="0.0dip"
+    android:id="@+id/ad_layout"
+    tools:context="net.vnict.phonecode.MainActivity">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0.0dip"
+        android:layout_weight="1.0">
+
+        <TextView
+            android:id="@+id/text_list"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="3.0dip"
+            android:text=""
+            android:visibility="gone" />
+        <CheckBox
+            android:id="@+id/check_all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_list"
+            android:text="@string/seleted_all" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/check_all"
+            android:background="@color/colorAccent" />
+
+        <ScrollView
+            android:id="@+id/layout_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_alignParentRight="true"
+            android:background="#ffeeeeee"
+            android:padding="5.0dip">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#ffebebeb"
+                android:orientation="vertical"
+                android:padding="5.0dip">
+
+                <TextView
+                    android:id="@+id/btnUpdate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="8.0dip"
+                    android:drawableTop="@drawable/ic_sim"
+                    android:onClick="onClick"
+                    android:text="@string/update"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/text_about"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="8.0dip"
+                    android:drawableTop="@drawable/ic_about"
+                    android:onClick="onClick"
+                    android:text="@string/about"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/text_code"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="8.0dip"
+                    android:drawableTop="@drawable/ic_code"
+                    android:onClick="onClick"
+                    android:text="@string/mobile_code"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/text_search"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="8.0dip"
+                    android:drawableTop="@android:drawable/ic_search_category_default"
+                    android:onClick="onClick"
+                    android:text="@string/search"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/btnShare"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="8.0dip"
+                    android:drawableTop="@drawable/ic_share"
+                    android:onClick="onClick"
+                    android:text="@string/share"
+                    android:textSize="12sp" />
+            </LinearLayout>
+        </ScrollView>
+
+        <ListView
+            android:id="@+id/lvDanhBa"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_below="@+id/check_all"
+            android:layout_toLeftOf="@+id/layout_menu" />
+
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true">
+    </RelativeLayout>
+</LinearLayout>
