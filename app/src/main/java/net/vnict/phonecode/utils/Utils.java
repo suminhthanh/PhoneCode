@@ -1,18 +1,15 @@
 package net.vnict.phonecode.utils;
-
 import android.content.Context;
 import android.util.Log;
 import android.view.Gravity;
 import android.widget.Toast;
-
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-
 public class Utils {
-    private static boolean sShowLog = true;
+    private static boolean sShowLog = false;
     private static String TAG = "PhoneCode";
 
     public static void LOG(String str) {
@@ -33,8 +30,6 @@ public class Utils {
         FileInputStream fileInputStream = null;
         InputStreamReader inputStreamReader = null;
         BufferedReader bufferedReader = null;
-
-
         try {
             fileInputStream = new FileInputStream(pathFile);
             inputStreamReader = new InputStreamReader(fileInputStream);
@@ -62,5 +57,4 @@ public class Utils {
         }
         return content;
     }
-
 }

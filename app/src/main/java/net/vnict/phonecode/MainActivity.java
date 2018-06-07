@@ -280,9 +280,6 @@ public class MainActivity extends AppCompatActivity {
                 b.setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if (mInterstitialAd.isLoaded()) {
-                            mInterstitialAd.show();
-                        }
                         dialog.cancel();
                     }
                 });
