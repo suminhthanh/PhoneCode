@@ -5,7 +5,6 @@
     <string name="about_description">"Bộ TT-TT vừa công bố chi tiết các đầu số thuê bao di động 11 số sẽ chuyển thành 10 số đến từ 5 nhà mạng gồm Mobifone, Viettel, Vinaphone, Vietnamobile và Gtel bắt đầu từ ngày 15/09/2018. Các nhà mạng lớn như Mobifone, Vinaphone, Viettel lần lượt có đầu số chuyển đổi mới là 07x, 08x và 03x, hai nhà mạng Vietnamobile và Gtel dùng chung đầu số 05x.
 Việc chuyển đổi bắt đầu từ ngày 15/9/2018 và kết thúc vào ngày 30/6/2019. Khi tiến hành chuyển đổi các nhà mạng sẽ phải quay số song song (duy trì cả số cũ và số mới) từ ngày 15/9/2018 đến ngày 14/11/2018 và duy trì âm báo bằng tiếng Việt và tiếng Anh."</string>
     <string name="all_province">Cả nước</string>
-    <string name="code">Bảng mã</string>
     <string name="confirm_update">Bạn có chắc chắn muốn cập nhật danh bạ ?</string>
     <string name="load_contact">Đã tìm thấy các số di động trong danh bạ</string>
     <string name="no_contact">Không tìm thấy số điện thoại di động có mã mạng cần chuyển đổi</string>

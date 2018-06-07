@@ -46,29 +46,6 @@
         <item>0188</item>
         <item>0199</item>
     </string-array>
-    <string-array name="search">
-        <item>Mobifone 0120 -> 070</item>
-        <item>Mobifone 0121 -> 079</item>
-        <item>Mobifone 0122 -> 077</item>
-        <item>Mobifone 0126 -> 076</item>
-        <item>Mobifone 0128 -> 078</item>
-        <item>Vinaphone 0123 -> 083</item>
-        <item>Vinaphone 0124 -> 084</item>
-        <item>Vinaphone 0125 -> 085</item>
-        <item>Vinaphone 0127 -> 081</item>
-        <item>Vinaphone 0129 -> 082</item>
-        <item>Viettel 0162 -> 082</item>
-        <item>Viettel 0163 -> 033</item>
-        <item>Viettel 0164 -> 034</item>
-        <item>Viettel 0165 -> 035</item>
-        <item>Viettel 0166 -> 036</item>
-        <item>Viettel 0167 -> 037</item>
-        <item>Viettel 0168 -> 038</item>
-        <item>Viettel 0169 -> 039</item>
-        <item>Vietnamobile 0186 -> 056</item>
-        <item>Vietnamobile 0188 -> 058</item>
-        <item>Gmobile 0199 -> 059</item>
-    </string-array>
     <string-array name="provinces">
     <item>Mobifone</item>
     <item>Mobifone</item>
