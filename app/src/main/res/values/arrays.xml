@@ -92,15 +92,6 @@
     <item>Vietnamobile</item>
     <item>Gmobile</item>
     </string-array>
-    <string-array name="arrBanner">
-        <item>ca-app-pub-8530721204937057/6773757768</item>
-    </string-array>
-    <string-array name="idAdmob">
-        <item>ca-app-pub-8530721204937057~3620432071</item>
-    </string-array>
-    <string-array name="interstitial">
-        <item>ca-app-pub-8530721204937057/4518580771</item>
-    </string-array>
 </resources>
 
 

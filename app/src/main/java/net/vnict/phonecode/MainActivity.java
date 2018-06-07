@@ -121,15 +121,6 @@ public class MainActivity extends AppCompatActivity {
                 Utils.LOG("Khong the load id admob " + ex.toString());
             }
         }
-        else
-        {
-            arrBanner = getResources().getStringArray(R.array.arrBanner);
-            arrInterstitial = getResources().getStringArray(R.array.interstitial);
-            arrIdAdmob = getResources().getStringArray(R.array.idAdmob);
-            idAdmob = arrIdAdmob[0];
-            idBanner = arrBanner[0];
-            idInterstitial = arrInterstitial[0];
-        }
         // init banner admob
         MobileAds.initialize(this, idAdmob);
         RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.adView);
