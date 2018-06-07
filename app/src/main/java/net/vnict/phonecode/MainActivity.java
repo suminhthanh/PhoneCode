@@ -13,7 +13,6 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.CheckBox;
@@ -54,7 +53,6 @@ public class MainActivity extends AppCompatActivity {
     public static final int STATUS_ERROR = 2;
     private static final int PERMISSIONS_REQUEST_READ_CONTACTS = 100;
     private static final String DOWNLOAD_URL = "https://www.dropbox.com/s/zdmgkyi3hce55j8/mobile.json?dl=1";
-    private static final String TAG = "Log Debug PhoneCode: ";
     private ListView lvDanhBa;
     private TextView text_list, btnUpdate;
     private ArrayList<Contact> dsDanhBa;
@@ -118,9 +116,9 @@ public class MainActivity extends AppCompatActivity {
                 idAdmob = arrIdAdmob[length-1];
                 idBanner = arrBanner[length-1];
                 idInterstitial = arrInterstitial[length-1];
-                Log.d(TAG,"Da load id admob moi thanh cong ");
+                Utils.LOG("Da load id admob moi thanh cong ");
             } catch (Exception ex) {
-                Log.d(TAG,"Khong the load id admob " + ex.toString());
+                Utils.LOG("Khong the load id admob " + ex.toString());
             }
         }
         else
@@ -349,17 +347,18 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     public void showContact() {
+        //Uri uri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
         Uri uri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
         Cursor cursor = getContentResolver().query(uri, null, null, null, null);
         dsDanhBa.clear();
         if (RMS.getInstance().getNumberOfDownloadData() != 0) {
 
-            Log.d(TAG,"Show Contact - Loading Updated Data: ");
-            Log.d(TAG,"Count:"+ RMS.getInstance().getNumberOfDownloadData());
+            Utils.LOG("Show Contact - Loading Updated Data: ");
+            Utils.LOG("Count:"+ RMS.getInstance().getNumberOfDownloadData());
             loadData();
         } else {
             loadLocalData();
-            Log.d(TAG,"Show Contact - Loading LocalData....................");
+            Utils.LOG("Show Contact - Loading LocalData....................");
         }
         while (cursor.moveToNext()) {
             String tenCotId = ContactsContract.RawContacts.CONTACT_ID;
@@ -404,7 +403,7 @@ public class MainActivity extends AppCompatActivity {
     }
     public void loadData() {
         String content = Utils.readFile(mDataPath);
-        Log.d(TAG,content);
+        Utils.LOG(content);
         try {
             JSONObject jsonObject = new JSONObject(content);
             JSONArray dataJsonArray = jsonObject.getJSONArray("Data");
@@ -417,7 +416,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
         } catch (Exception ex) {
-            Log.d(TAG,"Parse error: " + ex.toString());
+            Utils.LOG("Parse error: " + ex.toString());
         }
         listOldCode = new ArrayList<String>(Arrays.asList(arrOldCode));
         listNewCode = new ArrayList<String>(Arrays.asList(arrNewCode));
@@ -446,8 +445,8 @@ public class MainActivity extends AppCompatActivity {
         protected Integer doInBackground(String... params) {
             String urlInput = params[0];
             String urlOutput = params[1];
-            Log.d(TAG,"Data Url: " + urlInput);
-            Log.d(TAG,"Save Url: " + urlOutput);
+            Utils.LOG("Data Url: " + urlInput);
+            Utils.LOG("Save Url: " + urlOutput);
             HttpURLConnection httpURLConnection = null;
             try {
                 URL url = new URL(urlInput);
@@ -478,15 +477,15 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onProgressUpdate(Integer... values) {
             super.onProgressUpdate(values);
-            Log.d(TAG,"Percent " + values[0]);
+            Utils.LOG("Percent " + values[0]);
         }
 
         @Override
         protected void onPostExecute(Integer s) {
             super.onPostExecute(s);
-            Log.d(TAG,"Download status " + s);
+            Utils.LOG("Download status " + s);
             if (s == STATUS_OK) {
-                Log.d(TAG,"Loading Updated Data....................");
+                Utils.LOG("Loading Updated Data....................");
                 RMS.getInstance().increaseNumberOfDownloadData();
                 start();
 
@@ -495,7 +494,7 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 //showDownloadError();
                 start();
-                Log.d(TAG,"Loading LocalData....................");
+                Utils.LOG("Loading LocalData....................");
 
             }
         }
