@@ -2,6 +2,7 @@ package net.vnict.phonecode;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -30,6 +31,7 @@ import static net.vnict.phonecode.utils.Constants.THIRD_COLUMN;
 
 public class CodeActivity extends AppCompatActivity {
     private String[] arrProvider, arrOldCode, arrNewCode, arrBanner, arrInterstitial, arrIdAdmob;
+    private static final String TAG = "Log Debug PhoneCode: ";
     private String DATA_FILE_NAME = "content.json";
     private String mDataPath;
     private ArrayList<HashMap<String, String>> list;
@@ -46,7 +48,7 @@ public class CodeActivity extends AppCompatActivity {
         list = new ArrayList<HashMap<String, String>>();
         mDataPath = getExternalFilesDir(null).getAbsolutePath() + "/" + DATA_FILE_NAME;
         String content = Utils.readFile(mDataPath);
-        Utils.LOG(content);
+        Log.d(TAG,content);
         if (RMS.getInstance().getNumberOfDownloadData() == 0) {
             arrProvider = getResources().getStringArray(R.array.provinces);
             arrOldCode = getResources().getStringArray(R.array.old_prefixes);
@@ -58,7 +60,7 @@ public class CodeActivity extends AppCompatActivity {
                 temp.put(THIRD_COLUMN, arrNewCode[i]);
                 list.add(temp);
             }
-            Utils.LOG("Load Offline CodeActivity");
+            Log.d(TAG,"Load Offline CodeActivity");
 
 
         } else {
@@ -79,9 +81,9 @@ public class CodeActivity extends AppCompatActivity {
                     temp.put(THIRD_COLUMN, arrNewCode[i]);
                     list.add(temp);
                 }
-                Utils.LOG("Load Updated CodeActivity");
+                Log.d(TAG,"Load Updated CodeActivity");
             } catch (Exception ex) {
-                Utils.LOG("Parse error: " + ex.toString());
+                Log.d(TAG,"Parse error: " + ex.toString());
             }
 
         }
@@ -129,9 +131,9 @@ public class CodeActivity extends AppCompatActivity {
                 idAdmob = arrIdAdmob[length-1];
                 idBanner = arrBanner[length-1];
                 idInterstitial = arrInterstitial[length-1];
-                Utils.LOG("Da load id admob moi thanh cong ");
+                Log.d(TAG,"Da load id admob moi thanh cong ");
             } catch (Exception ex) {
-                Utils.LOG("Khong the load id admob " + ex.toString());
+                Log.d(TAG,"Khong the load id admob " + ex.toString());
             }
         }
         else

@@ -9,6 +9,7 @@ import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,7 +55,6 @@ public class ContactAdapter extends ArrayAdapter<Contact> {
     public static void viewContactSystem(Activity activity, String contactId) {
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_URI, "" + contactId));
         activity.startActivity(intent);
-        Utils.LOG("id-Adapter=" + contactId);
     }
 
     @NonNull
