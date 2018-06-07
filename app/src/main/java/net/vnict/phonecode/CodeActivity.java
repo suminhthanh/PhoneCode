@@ -29,8 +29,7 @@ import static net.vnict.phonecode.utils.Constants.SECOND_COLUMN;
 import static net.vnict.phonecode.utils.Constants.THIRD_COLUMN;
 
 public class CodeActivity extends AppCompatActivity {
-    String[] arrProvider, arrOldCode, arrNewCode, arrBanner, arrInterstitial, arrIdAdmob;
-    
+    private String[] arrProvider, arrOldCode, arrNewCode, arrBanner, arrInterstitial, arrIdAdmob;
     private String DATA_FILE_NAME = "content.json";
     private String mDataPath;
     private ArrayList<HashMap<String, String>> list;

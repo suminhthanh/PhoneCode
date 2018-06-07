@@ -18,8 +18,8 @@ import static net.vnict.phonecode.utils.Constants.THIRD_COLUMN;
 
 public class CodeAdapter extends BaseAdapter {
 
-    public ArrayList<HashMap<String, String>> list;
-    Activity activity;
+    private ArrayList<HashMap<String, String>> list;
+    private Activity activity;
 
     public CodeAdapter(Activity activity, ArrayList<HashMap<String, String>> list) {
         super();
@@ -47,8 +47,6 @@ public class CodeAdapter extends BaseAdapter {
 
     public View getView(int position, View convertView, ViewGroup parent) {
         // TODO Auto-generated method stub
-
-
         LayoutInflater inflater = activity.getLayoutInflater();
         ViewHolder holder;
         if (convertView == null) {
@@ -69,8 +67,8 @@ public class CodeAdapter extends BaseAdapter {
         return convertView;
     }
 
-    private class ViewHolder {
-        TextView txtFirst, txtSecond, txtThird;
+    static class ViewHolder {
+        private TextView txtFirst, txtSecond, txtThird;
     }
 
 }

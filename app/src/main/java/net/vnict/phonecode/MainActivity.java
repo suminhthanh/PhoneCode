@@ -53,23 +53,21 @@ public class MainActivity extends AppCompatActivity {
     public static final int STATUS_ERROR = 2;
     private static final int PERMISSIONS_REQUEST_READ_CONTACTS = 100;
     private static final String DOWNLOAD_URL = "https://www.dropbox.com/s/zdmgkyi3hce55j8/mobile.json?dl=1";
-    ListView lvDanhBa;
-    TextView text_list, btnUpdate;
-    ArrayList<Contact> dsDanhBa;
-    ArrayList<Contact> dsDanhBaChecked;
-    ContactAdapter adapterDanhBa;
-    ArrayList<ArrayList<TransProviders>> listCode;
-    ArrayList<String> listOldCode;
-    ArrayList<String> listNewCode;
-    CheckBox chkAll;
-    String[] arrOldCode, arrNewCode, arrBanner, arrInterstitial, arrIdAdmob;
+    private ListView lvDanhBa;
+    private TextView text_list, btnUpdate;
+    private ArrayList<Contact> dsDanhBa;
+    private ArrayList<Contact> dsDanhBaChecked;
+    private ContactAdapter adapterDanhBa;
+    private ArrayList<ArrayList<TransProviders>> listCode;
+    private ArrayList<String> listOldCode;
+    private ArrayList<String> listNewCode;
+    private CheckBox chkAll;
+    private String[] arrOldCode, arrNewCode, arrBanner, arrInterstitial, arrIdAdmob;
     private String mDataPath;
     private String DATA_FILE_NAME = "content.json";
-    LoadContact loadContact;
+    private LoadContact loadContact;
     private InterstitialAd mInterstitialAd;
     private AdView mAdView;
-    private boolean mIsLoadAd;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -298,15 +296,15 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent1 = new Intent(MainActivity.this, CodeActivity.class);
                 startActivity(intent1);
                 break;
-            case R.id.btnShare:
-                ShareLinkContent content = new ShareLinkContent.Builder()
-                        .setContentUrl(Uri.parse("https://vnict.net"))
-                        .setShareHashtag(new ShareHashtag.Builder()
-                                .setHashtag("#Test")
-                                .build())
-                        .build();
-                ShareDialog.show(this, content);
-                break;
+//            case R.id.btnShare:
+//                ShareLinkContent content = new ShareLinkContent.Builder()
+//                        .setContentUrl(Uri.parse("https://vnict.net"))
+//                        .setShareHashtag(new ShareHashtag.Builder()
+//                                .setHashtag("#Test")
+//                                .build())
+//                        .build();
+//                ShareDialog.show(this, content);
+//                break;
         }
     }
     @Override

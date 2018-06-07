@@ -27,9 +27,9 @@ import net.vnict.phonecode.utils.Utils;
 import java.util.List;
 
 public class ContactAdapter extends ArrayAdapter<Contact> {
-    Activity context;
-    int resource;
-    List<Contact> objects;
+    private Activity context;
+    private int resource;
+    private List<Contact> objects;
     private static final String MOBIFONE = "07";
     private static final String VINAPHONE = "08";
     private static final String VIETTEL = "03";
@@ -61,41 +61,43 @@ public class ContactAdapter extends ArrayAdapter<Contact> {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         LayoutInflater inflater = this.context.getLayoutInflater();
-        final View row = inflater.inflate(this.resource, null);
-
-
-        TextView txtTen = (TextView) row.findViewById(R.id.txtTen);
-        TextView txtPhone = (TextView) row.findViewById(R.id.txtPhone);
-        ImageButton call = (ImageButton) row.findViewById(R.id.btnCall);
-        ImageButton detail = (ImageButton) row.findViewById(R.id.btnChiTiet);
-        CheckBox chkChecked = (CheckBox) row.findViewById(R.id.chkChecked);
-        ImageView imgLogo = (ImageView) row.findViewById(R.id.imgLogo);
-
+        ViewHolder holder;
+        if (convertView == null) {
+            holder = new ViewHolder();
+            convertView = inflater.inflate(this.resource, null);
+            holder.txtTen = (TextView) convertView.findViewById(R.id.txtTen);
+            holder.txtPhone = (TextView) convertView.findViewById(R.id.txtPhone);
+            holder.call = (ImageButton) convertView.findViewById(R.id.btnCall);
+            holder.detail = (ImageButton) convertView.findViewById(R.id.btnChiTiet);
+            holder.chkChecked = (CheckBox) convertView.findViewById(R.id.chkChecked);
+            holder.imgLogo = (ImageView) convertView.findViewById(R.id.imgLogo);
+            convertView.setTag(holder);
+        }
+        else{
+            holder = (ViewHolder) convertView.getTag();
+        }
         final Contact danhBa = this.objects.get(position);
         //Tra ve danh ba muon hien thi
-        call.setOnClickListener(new View.OnClickListener() {
+        holder.call.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String phoneNumber = danhBa.getNewphonenumber();
                 callContactSystem(context, phoneNumber);
             }
-
-
         });
-        detail.setOnClickListener(new View.OnClickListener() {
+        holder.detail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String contactId = danhBa.getTenCotId();
                 viewContactSystem(context, contactId);
             }
         });
-        txtTen.setText(danhBa.getName());
-        txtPhone.setText(danhBa.getTransnumber() + " -> " + danhBa.getNewphonenumber());
-        chkChecked.setChecked(danhBa.isChecked());
-        chkChecked.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        holder.txtTen.setText(danhBa.getName());
+        holder.txtPhone.setText(danhBa.getTransnumber() + " -> " + danhBa.getNewphonenumber());
+        holder.chkChecked.setChecked(danhBa.isChecked());
+        holder.chkChecked.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
                 if (isChecked) {
                     //Cho checkitem bằng true
                     danhBa.setChecked(true);
@@ -113,28 +115,29 @@ public class ContactAdapter extends ArrayAdapter<Contact> {
         switch (code)
         {
             case MOBIFONE:
-                imgLogo.setImageResource(R.drawable.ic_mobifone);
+                holder.imgLogo.setImageResource(R.drawable.ic_mobifone);
                 break;
             case VINAPHONE:
-                imgLogo.setImageResource(R.drawable.ic_vinaphone);
+                holder.imgLogo.setImageResource(R.drawable.ic_vinaphone);
                 break;
             case VIETTEL:
-                imgLogo.setImageResource(R.drawable.ic_viettel);
+                holder.imgLogo.setImageResource(R.drawable.ic_viettel);
                 break;
             case VIETNAMOBILE:
                 if(CommonCode.subString(danhBa.getTransnumber(),4).equals("0188"))
-                    imgLogo.setImageResource(R.drawable.ic_vnm);
+                    holder.imgLogo.setImageResource(R.drawable.ic_vnm);
                 else
-                    imgLogo.setImageResource(R.drawable.ic_gtel);
+                    holder.imgLogo.setImageResource(R.drawable.ic_gtel);
                 break;
              default:
                  break;
-
-
         }
-
-       // imgLogo.setImageDrawable();
-        return row;
+        return convertView;
     }
-
+    static class ViewHolder{
+        private  TextView txtTen, txtPhone ;
+        private ImageButton call, detail;
+        private CheckBox chkChecked;
+        private ImageView imgLogo;
+    }
 }
