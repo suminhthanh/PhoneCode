@@ -20,27 +20,20 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.facebook.share.model.ShareHashtag;
-import com.facebook.share.model.ShareLinkContent;
-import com.facebook.share.widget.ShareDialog;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
-
 import net.vnict.phonecode.adapter.ContactAdapter;
 import net.vnict.phonecode.model.Contact;
 import net.vnict.phonecode.model.TransProviders;
 import net.vnict.phonecode.utils.CommonCode;
 import net.vnict.phonecode.utils.RMS;
 import net.vnict.phonecode.utils.Utils;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
