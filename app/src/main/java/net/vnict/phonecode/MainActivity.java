@@ -198,6 +198,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onAdClosed() {
                 updateContactWithAd();
+                mInterstitialAd.loadAd(new AdRequest.Builder().build());
             }
         });
         mAdView.setAdListener(new AdListener() {
@@ -270,10 +271,8 @@ public class MainActivity extends AppCompatActivity {
                         if (mInterstitialAd.isLoaded())
                         {
                             mInterstitialAd.show();
-                            mInterstitialAd.loadAd(new AdRequest.Builder().build());
                         } else {
                             updateContactWithAd();
-                            mInterstitialAd.loadAd(new AdRequest.Builder().build());
                         }
 
                     }

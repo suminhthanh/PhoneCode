@@ -94,13 +94,19 @@ public class CodeActivity extends AppCompatActivity {
                 if (mInterstitialAd.isLoaded())
                 {
                     mInterstitialAd.show();
-                    mInterstitialAd.loadAd(new AdRequest.Builder().build());
                 }
-                else
-                    mInterstitialAd.loadAd(new AdRequest.Builder().build());
             }
         });
-     }
+        mInterstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdClosed() {
+                // Load the next interstitial.
+                mInterstitialAd.loadAd(new AdRequest.Builder().build());
+            }
+
+        });
+
+    }
     private void loadAd() {
         String idAdmob ="ca-app-pub-8530721204937057~3620432071";
         String idBanner ="ca-app-pub-8530721204937057/6773757768";
