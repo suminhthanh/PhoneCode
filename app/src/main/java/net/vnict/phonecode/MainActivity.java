@@ -248,7 +248,7 @@ public class MainActivity extends AppCompatActivity {
                 AlertDialog.Builder b = new AlertDialog.Builder(MainActivity.this);
                 b.setTitle(R.string.notice);
                 b.setMessage(R.string.confirm_update);
-                b.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                b.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                       //  if (mInterstitialAd.isLoaded() && mIsLoadAd) {
@@ -261,7 +261,7 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 });
-                b.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                b.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
