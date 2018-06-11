@@ -6,13 +6,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
-import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.widget.CheckBox;
@@ -21,20 +22,24 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
+
 import net.vnict.phonecode.adapter.ContactAdapter;
 import net.vnict.phonecode.model.Contact;
 import net.vnict.phonecode.model.TransProviders;
 import net.vnict.phonecode.utils.CommonCode;
 import net.vnict.phonecode.utils.RMS;
 import net.vnict.phonecode.utils.Utils;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
+
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -42,7 +47,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class MainActivity extends AppCompatActivity {
+public class RevertActivity extends AppCompatActivity {
     public static final int STATUS_OK = 1;
     public static final int STATUS_ERROR = 2;
     private static final int PERMISSIONS_REQUEST_READ_CONTACTS = 100;
@@ -91,8 +96,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loadAd() {
-        String idAdmob ="ca-app-pub-8530721204937057~3620432071";
-        String idBanner ="ca-app-pub-8530721204937057/6773757768";
+        String idAdmob = "ca-app-pub-8530721204937057~3620432071";
+        String idBanner = "ca-app-pub-8530721204937057/6773757768";
         String idInterstitial = "ca-app-pub-8530721204937057/4518580771";
         if (RMS.getInstance().getNumberOfDownloadData() != 0) {
             String content = Utils.readFile(mDataPath);
@@ -109,9 +114,9 @@ public class MainActivity extends AppCompatActivity {
                     arrBanner[i] = object.getString("banner");
                     arrInterstitial[i] = object.getString("interstitial");
                 }
-                idAdmob = arrIdAdmob[length-1];
-                idBanner = arrBanner[length-1];
-                idInterstitial = arrInterstitial[length-1];
+                idAdmob = arrIdAdmob[length - 1];
+                idBanner = arrBanner[length - 1];
+                idInterstitial = arrInterstitial[length - 1];
                 Utils.LOG("Da load id admob moi thanh cong ");
             } catch (Exception ex) {
                 Utils.LOG("Khong the load id admob " + ex.toString());
@@ -120,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
         // init banner admob
         MobileAds.initialize(this, idAdmob);
         RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.adView);
-        mAdView = new AdView(MainActivity.this);
+        mAdView = new AdView(RevertActivity.this);
         mAdView.setAdSize(AdSize.BANNER);
         mAdView.setAdUnitId(idBanner);
         relativeLayout.addView(mAdView);
@@ -244,6 +249,8 @@ public class MainActivity extends AppCompatActivity {
         text_list = (TextView) findViewById(R.id.text_list);
         btnUpdate = (TextView) findViewById(R.id.btnUpdate);
         btnRevert = (TextView) findViewById(R.id.btnRevert);
+        Drawable top = getResources().getDrawable(R.drawable.ic_home);
+        btnRevert.setCompoundDrawablesWithIntrinsicBounds(null, top , null, null);
         txtProgress = (TextView) findViewById(R.id.txtProgress);
         progress_barUpdate = (ProgressBar) findViewById(R.id.progress_barUpdate);
     }
@@ -254,15 +261,14 @@ public class MainActivity extends AppCompatActivity {
             default:
                 return;
             case R.id.btnUpdate:
-                AlertDialog.Builder b = new AlertDialog.Builder(MainActivity.this);
+                AlertDialog.Builder b = new AlertDialog.Builder(RevertActivity.this);
                 b.setTitle(R.string.notice);
                 b.setMessage(R.string.confirm_update);
                 b.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                      //  if (mInterstitialAd.isLoaded() && mIsLoadAd) {
-                        if (mInterstitialAd.isLoaded())
-                        {
+                        //  if (mInterstitialAd.isLoaded() && mIsLoadAd) {
+                        if (mInterstitialAd.isLoaded()) {
                             mInterstitialAd.show();
                         } else {
                             updateContactWithAd();
@@ -279,14 +285,14 @@ public class MainActivity extends AppCompatActivity {
                 b.create().show();
                 break;
             case R.id.btnRevert:
-                Intent intent = new Intent(this, RevertActivity.class);
+                Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
                 break;
             case R.id.text_about:
                 new AlertDialog.Builder(this).setTitle(R.string.about).setMessage(R.string.about_description).setIcon(R.mipmap.ic_launcher).create().show();
                 break;
             case R.id.text_code:
-                Intent intent1 = new Intent(MainActivity.this, CodeActivity.class);
+                Intent intent1 = new Intent(RevertActivity.this, CodeActivity.class);
                 startActivity(intent1);
                 break;
 //            case R.id.btnShare:
@@ -300,6 +306,7 @@ public class MainActivity extends AppCompatActivity {
 //                break;
         }
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         if (requestCode == PERMISSIONS_REQUEST_READ_CONTACTS) {
@@ -308,7 +315,7 @@ public class MainActivity extends AppCompatActivity {
                 loadContact = new LoadContact();
                 loadContact.execute();
             } else {
-                AlertDialog.Builder b = new AlertDialog.Builder(MainActivity.this);
+                AlertDialog.Builder b = new AlertDialog.Builder(RevertActivity.this);
                 b.setTitle("Chú ý");
                 b.setMessage("Nếu bạn không cấp quyền ứng dụng sẽ thoát?");
                 b.setPositiveButton("OK, Thoát", new DialogInterface.OnClickListener() {
@@ -328,6 +335,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
     public void checkPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && checkSelfPermission(Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[]{
@@ -335,11 +343,12 @@ public class MainActivity extends AppCompatActivity {
                     Manifest.permission.WRITE_CONTACTS
             }, PERMISSIONS_REQUEST_READ_CONTACTS);
         } else {
-           // showContact();
+            // showContact();
             loadContact = new LoadContact();
             loadContact.execute();
         }
     }
+
     public void showContact() {
         //Uri uri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
         Uri uri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
@@ -348,7 +357,7 @@ public class MainActivity extends AppCompatActivity {
         if (RMS.getInstance().getNumberOfDownloadData() != 0) {
 
             Utils.LOG("Show Contact - Loading Updated Data: ");
-            Utils.LOG("Count:"+ RMS.getInstance().getNumberOfDownloadData());
+            Utils.LOG("Count:" + RMS.getInstance().getNumberOfDownloadData());
             loadData();
         } else {
             loadLocalData();
@@ -370,12 +379,15 @@ public class MainActivity extends AppCompatActivity {
                 contact.setNewphonenumber(CommonCode.ChangingPhone(contact, listCode));
                 dsDanhBa.add(contact);
             }
+
         }
     }
+
     private void updateContactWithAd() {
         runAsyncUpdate = new RunAsyncUpdate();
         runAsyncUpdate.execute();
     }
+
     public void loadData() {
         String content = Utils.readFile(mDataPath);
         Utils.LOG(content);
@@ -386,8 +398,8 @@ public class MainActivity extends AppCompatActivity {
             arrOldCode = new String[dataJsonArray.length()];
             for (int i = 0; i < dataJsonArray.length(); i++) {
                 JSONObject object = dataJsonArray.getJSONObject(i);
-                arrOldCode[i] = object.getString("old");
-                arrNewCode[i] = object.getString("new");
+                arrOldCode[i] = object.getString("new");
+                arrNewCode[i] = object.getString("old");
             }
 
         } catch (Exception ex) {
@@ -401,8 +413,8 @@ public class MainActivity extends AppCompatActivity {
     public void loadLocalData() {
         String[] arrOldCode = getResources().getStringArray(R.array.old_prefixes);
         String[] arrNewCode = getResources().getStringArray(R.array.new_prefixes);
-        listOldCode = new ArrayList<String>(Arrays.asList(arrOldCode));
-        listNewCode = new ArrayList<String>(Arrays.asList(arrNewCode));
+        listOldCode = new ArrayList<String>(Arrays.asList(arrNewCode));
+        listNewCode = new ArrayList<String>(Arrays.asList(arrOldCode));
         listCode = CommonCode.TachMaVungTheoDoDai(listOldCode, listNewCode);
     }
 
@@ -465,7 +477,6 @@ public class MainActivity extends AppCompatActivity {
                 start();
 
 
-
             } else {
                 //showDownloadError();
                 start();
@@ -485,15 +496,14 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Void aVoid) {
-            adapterDanhBa = new ContactAdapter(MainActivity.this, R.layout.item, dsDanhBa);
+            adapterDanhBa = new ContactAdapter(RevertActivity.this, R.layout.item, dsDanhBa);
             lvDanhBa.setAdapter(adapterDanhBa);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && checkSelfPermission(Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
                 requestPermissions(new String[]{
                         Manifest.permission.CALL_PHONE
                 }, 100);
             }
-            if(dsDanhBa.isEmpty())
-            {
+            if (dsDanhBa.isEmpty()) {
                 text_list.setVisibility(View.VISIBLE);
                 text_list.setText(R.string.no_contact);
                 btnUpdate.setVisibility(View.GONE);

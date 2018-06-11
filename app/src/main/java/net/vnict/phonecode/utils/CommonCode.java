@@ -59,7 +59,7 @@ public class CommonCode {
 
         if (number.substring(0, 3).equals("020") || number.substring(0, 3).equals("025") || number.substring(0, 3).equals("086") || number.substring(0, 3).equals("086") || number.substring(0, 2).equals("088") || number.substring(0, 2).equals("089"))
             return false;
-        if(number.length()<=10)
+        if(number.length()<10)
             return false;
         else
             for (int i = 4; i >= 2; i--) {

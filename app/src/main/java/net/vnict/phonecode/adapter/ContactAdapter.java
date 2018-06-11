@@ -106,6 +106,7 @@ public class ContactAdapter extends ArrayAdapter<Contact> {
                     CheckBox checkBoxAll = (CheckBox) context.findViewById(R.id.check_all);
                     if (checkBoxAll.isChecked())
                         checkBoxAll.setChecked(false);
+                        checkBoxAll.setText(R.string.seleted_all);
                     //Cho checkitem bằng false
                     danhBa.setChecked(false);
                 }

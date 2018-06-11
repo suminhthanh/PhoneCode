@@ -9,8 +9,15 @@ Việc chuyển đổi bắt đầu từ ngày 15/9/2018 và kết thúc vào ng
     <string name="no_contact">Không tìm thấy số điện thoại di động có mã mạng cần chuyển đổi</string>
     <string name="title">Đổi đầu số di động</string>
     <string name="update">Cập nhật</string>
+    <string name="updated">Đã cập nhật </string>
+    <string name="contact"> danh bạ</string>
+    <string name="updating">Đang cập nhật </string>
+    <string name="loading">Đang tải danh bạ </string>
+    <string name="waiting">Vui lòng chờ trong giây lát</string>
+    <string name="revert">Đổi ngược lại</string>
     <string name="update_result_ok">Đã cập nhật danh bạ</string>
     <string name="notice">Chú ý</string>
+    <string name="selected">Đã chọn </string>
     <string name="no_selected">Chưa có danh bạ nào được chọn</string>
     <string name="seleted_all">Chọn tất cả</string>
     <string name="file_name">mobile.json</string>

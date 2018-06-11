@@ -15,7 +15,8 @@
         android:layout_height="0.0dip"
         android:layout_weight="1.0">
 
-        <TextView
+
+         <TextView
             android:id="@+id/text_list"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -50,6 +51,24 @@
                 android:orientation="vertical"
                 android:padding="5.0dip">
 
+                <ProgressBar
+                    android:id="@+id/progress_barUpdate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone">
+                </ProgressBar>
+                <TextView
+                    android:id="@+id/txtProgress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="8.0dip"
+                    android:textAlignment="center"
+                    android:onClick="onClick"
+                    android:text="@string/updating"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:visibility="gone"/>
                 <TextView
                     android:id="@+id/btnUpdate"
                     android:layout_width="wrap_content"
@@ -61,7 +80,18 @@
                     android:text="@string/update"
                     android:textSize="12sp"
                     android:textStyle="bold" />
-
+                <TextView
+                    android:id="@+id/btnRevert"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="8.0dip"
+                    android:drawableTop="@drawable/ic_revert"
+                    android:onClick="onClick"
+                    android:text="@string/revert"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
                 <TextView
                     android:id="@+id/text_about"
                     android:layout_width="wrap_content"

@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Utils {
-    private static boolean sShowLog = false;
+    private static boolean sShowLog = true;
     private static String TAG = "PhoneCode";
 
     public static void LOG(String str) {
