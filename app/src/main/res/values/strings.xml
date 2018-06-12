@@ -9,6 +9,7 @@ Việc chuyển đổi bắt đầu từ ngày 15/9/2018 và kết thúc vào ng
     <string name="no_contact">Không tìm thấy số điện thoại di động có mã mạng cần chuyển đổi</string>
     <string name="title">Đổi đầu số di động</string>
     <string name="title_revert">Đổi 10 số thành 11 số</string>
+    <string name="menu_share">Chia sẽ</string>
     <string name="homepage">Trang chủ</string>
     <string name="update">Cập nhật</string>
     <string name="updated">Đã cập nhật </string>

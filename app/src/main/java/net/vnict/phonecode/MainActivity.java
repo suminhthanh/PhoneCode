@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.ShareActionProvider;
 import android.view.Menu;
 import android.view.View;
 import android.widget.CheckBox;
@@ -21,20 +22,24 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
+
 import net.vnict.phonecode.adapter.ContactAdapter;
 import net.vnict.phonecode.model.Contact;
 import net.vnict.phonecode.model.TransProviders;
 import net.vnict.phonecode.utils.CommonCode;
 import net.vnict.phonecode.utils.RMS;
 import net.vnict.phonecode.utils.Utils;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
+
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -64,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
     private InterstitialAd mInterstitialAd;
     private AdView mAdView;
     RunAsyncUpdate runAsyncUpdate;
+    private ShareActionProvider mShareActionProvider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -164,6 +170,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -289,15 +296,14 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent1 = new Intent(MainActivity.this, CodeActivity.class);
                 startActivity(intent1);
                 break;
-//            case R.id.btnShare:
-//                ShareLinkContent content = new ShareLinkContent.Builder()
-//                        .setContentUrl(Uri.parse("https://vnict.net"))
-//                        .setShareHashtag(new ShareHashtag.Builder()
-//                                .setHashtag("#Test")
-//                                .build())
-//                        .build();
-//                ShareDialog.show(this, content);
-//                break;
+            case R.id.btnShare:
+                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                sharingIntent.setType("text/plain");
+                String shareBody = "Tải ứng dụng Đổi đầu số di động. Ứng dụng sẽ giúp bạn cập nhật tất cả số di động 11 số sang 10 số một cách nhanh chóng và thuận tiện nhất! https://play.google.com/store/apps/details?id=net.vnict.phonecode";
+                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Tải ứng dụng Đổi đầu số di động");
+                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+                startActivity(Intent.createChooser(sharingIntent, "Share via"));
+                break;
         }
     }
     @Override
@@ -572,4 +578,8 @@ public class MainActivity extends AppCompatActivity {
             mAdView.resume();
         }
     }
+
+
+
+
 }
