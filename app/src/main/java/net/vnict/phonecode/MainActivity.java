@@ -373,8 +373,22 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     private void updateContactWithAd() {
-        runAsyncUpdate = new RunAsyncUpdate();
-        runAsyncUpdate.execute();
+        int temp;
+        dsDanhBaChecked = new ArrayList<Contact>();
+        temp = 0;
+        for (int i = 0; i <= dsDanhBa.size() - 1; i++) {
+            if (dsDanhBa.get(i).isChecked() == true) {
+                dsDanhBaChecked.add(dsDanhBa.get(i));
+                temp = (temp + 1);
+            }
+        }
+        if (temp == 0) {
+            Toast.makeText(getApplicationContext(), R.string.no_selected, Toast.LENGTH_SHORT).show();
+        } else
+        {
+            runAsyncUpdate = new RunAsyncUpdate();
+            runAsyncUpdate.execute(temp);
+        }
     }
     public void loadData() {
         String content = Utils.readFile(mDataPath);
@@ -463,9 +477,6 @@ public class MainActivity extends AppCompatActivity {
                 Utils.LOG("Loading Updated Data....................");
                 RMS.getInstance().increaseNumberOfDownloadData();
                 start();
-
-
-
             } else {
                 //showDownloadError();
                 start();
@@ -502,7 +513,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private class RunAsyncUpdate extends AsyncTask<Void, Integer,  Void> {
+    private class RunAsyncUpdate extends AsyncTask<Integer, Integer,  Void> {
         private int temp;
         @Override
         protected void onPreExecute() {
@@ -515,26 +526,15 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
-        protected Void doInBackground(Void... params) {
-            dsDanhBaChecked = new ArrayList<Contact>();
-            temp = 0;
-            for (int i = 0; i <= dsDanhBa.size() - 1; i++) {
-                if (dsDanhBa.get(i).isChecked() == true) {
-                    dsDanhBaChecked.add(dsDanhBa.get(i));
-                    temp = (temp + 1);
-                }
-            }
-            if (temp == 0) {
-                Toast.makeText(getApplicationContext(), R.string.no_selected, Toast.LENGTH_SHORT).show();
-            } else {
-                int size = dsDanhBaChecked.size();
-                for (int j = 0; j < size; j++) {
-                    int percent = (int) (j * 100 / size);
-                    publishProgress(percent);
-                    String id = dsDanhBaChecked.get(j).getPhone();
-                    String num = dsDanhBaChecked.get(j).getNewphonenumber();
-                    updateContact(id, num);
-                }
+        protected Void doInBackground(Integer... params) {
+            temp = params[0];
+            int size = dsDanhBaChecked.size();
+            for (int j = 0; j < size; j++) {
+                int percent = (int) (j * 100 / size);
+                publishProgress(percent);
+                String id = dsDanhBaChecked.get(j).getPhone();
+                String num = dsDanhBaChecked.get(j).getNewphonenumber();
+                updateContact(id, num);
             }
             return null;
         }
@@ -549,12 +549,12 @@ public class MainActivity extends AppCompatActivity {
             txtProgress.setVisibility(View.GONE);
             progress_barUpdate.setVisibility(View.GONE);
             btnRevert.setVisibility(View.VISIBLE);
+            btnUpdate.setVisibility(View.VISIBLE);
+            chkAll.setText(R.string.seleted_all);
             loadContact = new LoadContact();
             loadContact.execute();
             Toast.makeText(getApplicationContext(), getResources().getString(R.string.updated) +" "+ String.valueOf(temp) +" "+ getResources().getString(R.string.contact), Toast.LENGTH_LONG).show();
         }
-
-
     }
 
     @Override

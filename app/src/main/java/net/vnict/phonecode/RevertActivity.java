@@ -10,10 +10,10 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.widget.CheckBox;
@@ -73,8 +73,7 @@ public class RevertActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_splash);
-        getSupportActionBar().hide();
+        setContentView(R.layout.activity_main);
         firstInit();
     }
 
@@ -82,15 +81,14 @@ public class RevertActivity extends AppCompatActivity {
         mDataPath = getExternalFilesDir(null).getAbsolutePath() + "/" + DATA_FILE_NAME;
         RMS.getInstance().init(this);
         RMS.getInstance().load();
-        Download download = new Download();
-        download.execute(DOWNLOAD_URL, mDataPath);
+        start();
     }
 
     public void start() {
-        setContentView(R.layout.activity_main);
         getSupportActionBar().show();
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setIcon(R.mipmap.ic_launcher);
+        getSupportActionBar().setTitle(R.string.title_revert);
         loadAd();
         init();
     }
@@ -251,6 +249,7 @@ public class RevertActivity extends AppCompatActivity {
         btnRevert = (TextView) findViewById(R.id.btnRevert);
         Drawable top = getResources().getDrawable(R.drawable.ic_home);
         btnRevert.setCompoundDrawablesWithIntrinsicBounds(null, top , null, null);
+        btnRevert.setText(R.string.homepage);
         txtProgress = (TextView) findViewById(R.id.txtProgress);
         progress_barUpdate = (ProgressBar) findViewById(R.id.progress_barUpdate);
     }
@@ -384,8 +383,22 @@ public class RevertActivity extends AppCompatActivity {
     }
 
     private void updateContactWithAd() {
-        runAsyncUpdate = new RunAsyncUpdate();
-        runAsyncUpdate.execute();
+        int temp;
+        dsDanhBaChecked = new ArrayList<Contact>();
+        temp = 0;
+        for (int i = 0; i <= dsDanhBa.size() - 1; i++) {
+            if (dsDanhBa.get(i).isChecked() == true) {
+                dsDanhBaChecked.add(dsDanhBa.get(i));
+                temp = (temp + 1);
+            }
+        }
+        if (temp == 0) {
+            Toast.makeText(getApplicationContext(), R.string.no_selected, Toast.LENGTH_SHORT).show();
+        } else
+        {
+            runAsyncUpdate = new RunAsyncUpdate();
+            runAsyncUpdate.execute(temp);
+        }
     }
 
     public void loadData() {
@@ -512,7 +525,7 @@ public class RevertActivity extends AppCompatActivity {
         }
     }
 
-    private class RunAsyncUpdate extends AsyncTask<Void, Integer,  Void> {
+    private class RunAsyncUpdate extends AsyncTask<Integer, Integer,  Void> {
         private int temp;
         @Override
         protected void onPreExecute() {
@@ -523,48 +536,35 @@ public class RevertActivity extends AppCompatActivity {
             btnRevert.setVisibility(View.GONE);
             Toast.makeText(getApplicationContext(), R.string.waiting, Toast.LENGTH_LONG).show();
         }
-
         @Override
-        protected Void doInBackground(Void... params) {
-            dsDanhBaChecked = new ArrayList<Contact>();
-            temp = 0;
-            for (int i = 0; i <= dsDanhBa.size() - 1; i++) {
-                if (dsDanhBa.get(i).isChecked() == true) {
-                    dsDanhBaChecked.add(dsDanhBa.get(i));
-                    temp = (temp + 1);
-                }
+        protected Void doInBackground(Integer... params) {
+        temp = params[0];
+            int size = dsDanhBaChecked.size();
+            for (int j = 0; j < size; j++) {
+                int percent = (int) (j * 100 / size);
+                publishProgress(percent);
+                String id = dsDanhBaChecked.get(j).getPhone();
+                String num = dsDanhBaChecked.get(j).getNewphonenumber();
+                updateContact(id, num);
             }
-            if (temp == 0) {
-                Toast.makeText(getApplicationContext(), R.string.no_selected, Toast.LENGTH_SHORT).show();
-            } else {
-                int size = dsDanhBaChecked.size();
-                for (int j = 0; j < size; j++) {
-                    int percent = (int) (j * 100 / size);
-                    publishProgress(percent);
-                    String id = dsDanhBaChecked.get(j).getPhone();
-                    String num = dsDanhBaChecked.get(j).getNewphonenumber();
-                    updateContact(id, num);
-                }
-            }
-            return null;
+        return null;
         }
         @Override
         protected void onProgressUpdate(Integer... values) {
             super.onProgressUpdate(values);
             txtProgress.setText((getResources().getString(R.string.updating)+" "+String.valueOf(values[0])+ "%"));
         }
-
         @Override
         protected void onPostExecute(Void aVoid) {
             txtProgress.setVisibility(View.GONE);
             progress_barUpdate.setVisibility(View.GONE);
             btnRevert.setVisibility(View.VISIBLE);
+            btnUpdate.setVisibility(View.VISIBLE);
+            chkAll.setText(R.string.seleted_all);
             loadContact = new LoadContact();
             loadContact.execute();
             Toast.makeText(getApplicationContext(), getResources().getString(R.string.updated) +" "+ String.valueOf(temp) +" "+ getResources().getString(R.string.contact), Toast.LENGTH_LONG).show();
         }
-
-
     }
 
     @Override

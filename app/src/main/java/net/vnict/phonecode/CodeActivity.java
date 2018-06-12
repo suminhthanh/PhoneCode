@@ -59,8 +59,6 @@ public class CodeActivity extends AppCompatActivity {
                 list.add(temp);
             }
             Utils.LOG("Load Offline CodeActivity");
-
-
         } else {
             try {
                 JSONObject jsonObject = new JSONObject(content);
@@ -99,13 +97,13 @@ public class CodeActivity extends AppCompatActivity {
         });
         mInterstitialAd.setAdListener(new AdListener() {
             @Override
-            public void onAdClosed() {
-                // Load the next interstitial.
-                mInterstitialAd.loadAd(new AdRequest.Builder().build());
+            public void onAdLoaded() {
+                if (mInterstitialAd.isLoaded())
+                {
+                    mInterstitialAd.show();
+                }
             }
-
         });
-
     }
     private void loadAd() {
         String idAdmob ="ca-app-pub-8530721204937057~3620432071";

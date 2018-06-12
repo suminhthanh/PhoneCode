@@ -8,13 +8,15 @@ Việc chuyển đổi bắt đầu từ ngày 15/9/2018 và kết thúc vào ng
     <string name="confirm_update">Bạn đã sao lưu danh bạ trước khi thực hiện thao tác này ?</string>
     <string name="no_contact">Không tìm thấy số điện thoại di động có mã mạng cần chuyển đổi</string>
     <string name="title">Đổi đầu số di động</string>
+    <string name="title_revert">Đổi 10 số thành 11 số</string>
+    <string name="homepage">Trang chủ</string>
     <string name="update">Cập nhật</string>
     <string name="updated">Đã cập nhật </string>
     <string name="contact"> danh bạ</string>
     <string name="updating">Đang cập nhật </string>
     <string name="loading">Đang tải danh bạ </string>
     <string name="waiting">Vui lòng chờ trong giây lát</string>
-    <string name="revert">Đổi ngược lại</string>
+    <string name="revert">Đổi lại</string>
     <string name="update_result_ok">Đã cập nhật danh bạ</string>
     <string name="notice">Chú ý</string>
     <string name="selected">Đã chọn </string>
@@ -27,5 +29,5 @@ Việc chuyển đổi bắt đầu từ ngày 15/9/2018 và kết thúc vào ng
     <string name="share">Chia sẽ</string>
     <string name="yes">Có</string>
     <string name="no">Không</string>
-    <string name="version">Version 1.0</string>
+    <string name="version">Version 1.1</string>
 </resources>
