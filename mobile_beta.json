@@ -1,0 +1,31 @@
+{
+    "Data" : [
+        {"old" : "0120", "new" : "070", "ten" : "Mobifone"},
+        {"old" : "0121", "new" : "079", "ten" : "Mobifone"},
+        {"old" : "0122", "new" : "077", "ten" : "Mobifone"},
+        {"old" : "0126", "new" : "076", "ten" : "Mobifone"},
+        {"old" : "0128", "new" : "078", "ten" : "Mobifone"},
+        {"old" : "0123", "new" : "083", "ten" : "Vinaphone"},
+        {"old" : "0124", "new" : "084", "ten" : "Vinaphone"},
+        {"old" : "0125", "new" : "085", "ten" : "Vinaphone"},
+        {"old" : "0127", "new" : "081", "ten" : "Vinaphone"},
+        {"old" : "0129", "new" : "082", "ten" : "Vinaphone"},
+        {"old" : "0162", "new" : "032", "ten" : "Viettel"},
+        {"old" : "0163", "new" : "033", "ten" : "Viettel"},
+        {"old" : "0164", "new" : "034", "ten" : "Viettel"},
+        {"old" : "0165", "new" : "035", "ten" : "Viettel"},
+        {"old" : "0166", "new" : "036", "ten" : "Viettel"},
+        {"old" : "0167", "new" : "037", "ten" : "Viettel"},
+        {"old" : "0168", "new" : "038", "ten" : "Viettel"},
+        {"old" : "0169", "new" : "039", "ten" : "Viettel"},
+        {"old" : "0186", "new" : "056", "ten" : "Vietnamobile"},
+        {"old" : "0188", "new" : "058", "ten" : "Vietnamobile"},
+        {"old" : "0199", "new" : "059", "ten" : "Gmobile"}
+    ],
+    "Admob" : [
+        {"idAdmob" : "ca-app-pub-3940256099942544~3347511713" , "banner" : "ca-app-pub-3940256099942544/6300978111" , "interstitial" : "ca-app-pub-3940256099942544/1033173712"},
+        {"idAdmob" : "ca-app-pub-9078637596840810~3533728208" , "banner" : "ca-app-pub-9078637596840810/5409507539" , "interstitial" : "ca-app-pub-9078637596840810/6363620263"},
+        {"idAdmob" : "ca-app-pub-8530721204937057~3620432071" , "banner" : "ca-app-pub-8530721204937057/6773757768" , "interstitial" : "ca-app-pub-8530721204937057/4518580771"},
+        {"idAdmob" : "ca-app-pub-3940256099942544~3347511713" , "banner" : "ca-app-pub-3940256099942544/6300978111" , "interstitial" : "ca-app-pub-3940256099942544/1033173712"}
+    ]
+}

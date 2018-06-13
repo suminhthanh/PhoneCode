@@ -69,7 +69,6 @@ public class MainActivity extends AppCompatActivity {
     private InterstitialAd mInterstitialAd;
     private AdView mAdView;
     RunAsyncUpdate runAsyncUpdate;
-    private ShareActionProvider mShareActionProvider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -299,10 +298,10 @@ public class MainActivity extends AppCompatActivity {
             case R.id.btnShare:
                 Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
                 sharingIntent.setType("text/plain");
-                String shareBody = "Tải ứng dụng Đổi đầu số di động. Ứng dụng sẽ giúp bạn cập nhật tất cả số di động 11 số sang 10 số một cách nhanh chóng và thuận tiện nhất! https://play.google.com/store/apps/details?id=net.vnict.phonecode";
-                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Tải ứng dụng Đổi đầu số di động");
+                String shareBody = getResources().getString(R.string.shareBody);
+                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, getResources().getString(R.string.title));
                 sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
-                startActivity(Intent.createChooser(sharingIntent, "Share via"));
+                startActivity(Intent.createChooser(sharingIntent, getResources().getString(R.string.share)));
                 break;
         }
     }
@@ -315,20 +314,21 @@ public class MainActivity extends AppCompatActivity {
                 loadContact.execute();
             } else {
                 AlertDialog.Builder b = new AlertDialog.Builder(MainActivity.this);
-                b.setTitle("Chú ý");
-                b.setMessage("Nếu bạn không cấp quyền ứng dụng sẽ thoát?");
-                b.setPositiveButton("OK, Thoát", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        finish();
-                    }
-                });
-                b.setNegativeButton("Cấp quyền", new DialogInterface.OnClickListener() {
+                b.setTitle(getResources().getString(R.string.notice));
+                b.setMessage(getResources().getString(R.string.grant_notice));
+                b.setPositiveButton(getResources().getString(R.string.grant), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
                         checkPermission();
                     }
+                });
+                b.setNegativeButton(getResources().getString(R.string.grant_exit), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+
                 });
                 b.create().show();
             }
@@ -389,7 +389,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         if (temp == 0) {
-            Toast.makeText(getApplicationContext(), R.string.no_selected, Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, R.string.no_selected, Toast.LENGTH_SHORT).show();
         } else
         {
             runAsyncUpdate = new RunAsyncUpdate();
@@ -502,19 +502,23 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Void aVoid) {
-            adapterDanhBa = new ContactAdapter(MainActivity.this, R.layout.item, dsDanhBa);
-            lvDanhBa.setAdapter(adapterDanhBa);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && checkSelfPermission(Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                requestPermissions(new String[]{
-                        Manifest.permission.CALL_PHONE
-                }, 100);
-            }
-            if(dsDanhBa.isEmpty())
-            {
+            if (dsDanhBa.isEmpty()) {
                 text_list.setVisibility(View.VISIBLE);
                 text_list.setText(R.string.no_contact);
                 btnUpdate.setVisibility(View.GONE);
                 lvDanhBa.setVisibility(View.GONE);
+                chkAll.setVisibility(View.GONE);
+            }
+            else
+            {
+                adapterDanhBa = new ContactAdapter(MainActivity.this, R.layout.item, dsDanhBa);
+                lvDanhBa.setAdapter(adapterDanhBa);
+                chkAll.setVisibility(View.VISIBLE);
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && checkSelfPermission(Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{
+                        Manifest.permission.CALL_PHONE
+                }, 100);
             }
         }
     }
@@ -528,7 +532,7 @@ public class MainActivity extends AppCompatActivity {
             progress_barUpdate.setVisibility(View.VISIBLE);
             btnUpdate.setVisibility(View.GONE);
             btnRevert.setVisibility(View.GONE);
-            Toast.makeText(getApplicationContext(), R.string.waiting, Toast.LENGTH_LONG).show();
+            Toast.makeText(MainActivity.this, R.string.waiting, Toast.LENGTH_LONG).show();
         }
 
         @Override
@@ -557,9 +561,10 @@ public class MainActivity extends AppCompatActivity {
             btnRevert.setVisibility(View.VISIBLE);
             btnUpdate.setVisibility(View.VISIBLE);
             chkAll.setText(R.string.seleted_all);
+            chkAll.setChecked(false);
             loadContact = new LoadContact();
             loadContact.execute();
-            Toast.makeText(getApplicationContext(), getResources().getString(R.string.updated) +" "+ String.valueOf(temp) +" "+ getResources().getString(R.string.contact), Toast.LENGTH_LONG).show();
+            Toast.makeText(MainActivity.this, getResources().getString(R.string.updated) +" "+ String.valueOf(temp) +" "+ getResources().getString(R.string.contact), Toast.LENGTH_LONG).show();
         }
     }
 

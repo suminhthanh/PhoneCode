@@ -20,6 +20,9 @@ Việc chuyển đổi bắt đầu từ ngày 15/9/2018 và kết thúc vào ng
     <string name="revert">Đổi lại</string>
     <string name="update_result_ok">Đã cập nhật danh bạ</string>
     <string name="notice">Chú ý</string>
+    <string name="grant">Cấp quyền</string>
+    <string name="grant_notice">Nếu bạn không cấp quyền ứng dụng sẽ thoát?</string>
+    <string name="grant_exit">OK, Thoát</string>
     <string name="selected">Đã chọn </string>
     <string name="no_selected">Chưa có danh bạ nào được chọn</string>
     <string name="seleted_all">Chọn tất cả</string>
@@ -28,6 +31,7 @@ Việc chuyển đổi bắt đầu từ ngày 15/9/2018 và kết thúc vào ng
     <string name="mobile_code">Mã mạng</string>
     <string name="search">Tìm kiếm</string>
     <string name="share">Chia sẽ</string>
+    <string name="shareBody">Tải ứng dụng Đổi đầu số di động. Ứng dụng sẽ giúp bạn cập nhật tất cả số di động 11 số sang 10 số một cách nhanh chóng và thuận tiện nhất! https://play.google.com/store/apps/details?id=net.vnict.phonecode</string>
     <string name="yes">Có</string>
     <string name="no">Không</string>
     <string name="version">Version 1.1</string>

@@ -28,7 +28,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/text_list"
-            android:text="@string/seleted_all" />
+            android:text="@string/seleted_all"
+            android:visibility="gone"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -121,6 +122,7 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="8.0dip"
                     android:drawableTop="@drawable/ic_share"
+                    android:textAlignment="center"
                     android:onClick="onClick"
                     android:text="@string/share"
                     android:textSize="12sp" />

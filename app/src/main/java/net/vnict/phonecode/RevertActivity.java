@@ -39,19 +39,10 @@ import net.vnict.phonecode.utils.Utils;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class RevertActivity extends AppCompatActivity {
-    public static final int STATUS_OK = 1;
-    public static final int STATUS_ERROR = 2;
-    private static final int PERMISSIONS_REQUEST_READ_CONTACTS = 100;
-    private static final String DOWNLOAD_URL = "https://www.dropbox.com/s/zdmgkyi3hce55j8/mobile.json?dl=1";
     private ListView lvDanhBa;
     private TextView text_list, btnUpdate, btnRevert, txtProgress;
     private ProgressBar progress_barUpdate;
@@ -138,7 +129,8 @@ public class RevertActivity extends AppCompatActivity {
     public void init() {
         addControls();
         addEvents();
-        checkPermission();
+        loadContact = new LoadContact();
+        loadContact.execute();
     }
 
     public void updateContact(String oldPhoneNumber, String newPhoneNumber) {
@@ -294,57 +286,14 @@ public class RevertActivity extends AppCompatActivity {
                 Intent intent1 = new Intent(RevertActivity.this, CodeActivity.class);
                 startActivity(intent1);
                 break;
-//            case R.id.btnShare:
-//                ShareLinkContent content = new ShareLinkContent.Builder()
-//                        .setContentUrl(Uri.parse("https://vnict.net"))
-//                        .setShareHashtag(new ShareHashtag.Builder()
-//                                .setHashtag("#Test")
-//                                .build())
-//                        .build();
-//                ShareDialog.show(this, content);
-//                break;
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        if (requestCode == PERMISSIONS_REQUEST_READ_CONTACTS) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                //showContact();
-                loadContact = new LoadContact();
-                loadContact.execute();
-            } else {
-                AlertDialog.Builder b = new AlertDialog.Builder(RevertActivity.this);
-                b.setTitle("Chú ý");
-                b.setMessage("Nếu bạn không cấp quyền ứng dụng sẽ thoát?");
-                b.setPositiveButton("OK, Thoát", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        finish();
-                    }
-                });
-                b.setNegativeButton("Cấp quyền", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                        checkPermission();
-                    }
-                });
-                b.create().show();
-            }
-        }
-    }
-
-    public void checkPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && checkSelfPermission(Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(new String[]{
-                    Manifest.permission.READ_CONTACTS,
-                    Manifest.permission.WRITE_CONTACTS
-            }, PERMISSIONS_REQUEST_READ_CONTACTS);
-        } else {
-            // showContact();
-            loadContact = new LoadContact();
-            loadContact.execute();
+            case R.id.btnShare:
+                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                sharingIntent.setType("text/plain");
+                String shareBody = getResources().getString(R.string.shareBody);
+                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, getResources().getString(R.string.title));
+                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+                startActivity(Intent.createChooser(sharingIntent, getResources().getString(R.string.share)));
+                break;
         }
     }
 
@@ -393,7 +342,7 @@ public class RevertActivity extends AppCompatActivity {
             }
         }
         if (temp == 0) {
-            Toast.makeText(getApplicationContext(), R.string.no_selected, Toast.LENGTH_SHORT).show();
+            Toast.makeText(RevertActivity.this, R.string.no_selected, Toast.LENGTH_SHORT).show();
         } else
         {
             runAsyncUpdate = new RunAsyncUpdate();
@@ -431,74 +380,6 @@ public class RevertActivity extends AppCompatActivity {
         listCode = CommonCode.TachMaVungTheoDoDai(listOldCode, listNewCode);
     }
 
-    private void showDownloadError() {
-        new AlertDialog.Builder(this).setTitle("Download").setMessage("Download Error, Please check internet connection").create().show();
-    }
-
-    private class Download extends AsyncTask<String, Integer, Integer> {
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected Integer doInBackground(String... params) {
-            String urlInput = params[0];
-            String urlOutput = params[1];
-            Utils.LOG("Data Url: " + urlInput);
-            Utils.LOG("Save Url: " + urlOutput);
-            HttpURLConnection httpURLConnection = null;
-            try {
-                URL url = new URL(urlInput);
-                httpURLConnection = (HttpURLConnection) url.openConnection();
-                httpURLConnection.setRequestMethod("GET");
-                httpURLConnection.connect();
-                InputStream inputStream = httpURLConnection.getInputStream();
-                long totalSize = httpURLConnection.getContentLength();
-                long downloadedSize = 0;
-                byte[] buffer = new byte[1024];
-                int bufferLength = 0;
-                //out put
-                FileOutputStream fos = new FileOutputStream(urlOutput);
-                while ((bufferLength = inputStream.read(buffer)) > 0) {
-                    fos.write(buffer, 0, bufferLength);
-                    downloadedSize += bufferLength;
-                    int percent = (int) (downloadedSize * 100 / totalSize);
-                    publishProgress(percent);
-                }
-                httpURLConnection.disconnect();
-            } catch (Exception e) {
-                httpURLConnection.disconnect();
-                return STATUS_ERROR;
-            }
-            return STATUS_OK;
-        }
-
-        @Override
-        protected void onProgressUpdate(Integer... values) {
-            super.onProgressUpdate(values);
-            Utils.LOG("Percent " + values[0]);
-        }
-
-        @Override
-        protected void onPostExecute(Integer s) {
-            super.onPostExecute(s);
-            Utils.LOG("Download status " + s);
-            if (s == STATUS_OK) {
-                Utils.LOG("Loading Updated Data....................");
-                RMS.getInstance().increaseNumberOfDownloadData();
-                start();
-
-
-            } else {
-                //showDownloadError();
-                start();
-                Utils.LOG("Loading LocalData....................");
-
-            }
-        }
-    }
-
     private class LoadContact extends AsyncTask<Void, Integer, Void> {
 
         @Override
@@ -509,19 +390,25 @@ public class RevertActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Void aVoid) {
-            adapterDanhBa = new ContactAdapter(RevertActivity.this, R.layout.item, dsDanhBa);
-            lvDanhBa.setAdapter(adapterDanhBa);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && checkSelfPermission(Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                requestPermissions(new String[]{
-                        Manifest.permission.CALL_PHONE
-                }, 100);
-            }
             if (dsDanhBa.isEmpty()) {
                 text_list.setVisibility(View.VISIBLE);
                 text_list.setText(R.string.no_contact);
                 btnUpdate.setVisibility(View.GONE);
                 lvDanhBa.setVisibility(View.GONE);
+                chkAll.setVisibility(View.GONE);
             }
+            else
+            {
+                adapterDanhBa = new ContactAdapter(RevertActivity.this, R.layout.item, dsDanhBa);
+                lvDanhBa.setAdapter(adapterDanhBa);
+                chkAll.setVisibility(View.VISIBLE);
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && checkSelfPermission(Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{
+                        Manifest.permission.CALL_PHONE
+                }, 100);
+            }
+
         }
     }
 
@@ -534,7 +421,7 @@ public class RevertActivity extends AppCompatActivity {
             progress_barUpdate.setVisibility(View.VISIBLE);
             btnUpdate.setVisibility(View.GONE);
             btnRevert.setVisibility(View.GONE);
-            Toast.makeText(getApplicationContext(), R.string.waiting, Toast.LENGTH_LONG).show();
+            Toast.makeText(RevertActivity.this, R.string.waiting, Toast.LENGTH_LONG).show();
         }
         @Override
         protected Void doInBackground(Integer... params) {
@@ -561,9 +448,10 @@ public class RevertActivity extends AppCompatActivity {
             btnRevert.setVisibility(View.VISIBLE);
             btnUpdate.setVisibility(View.VISIBLE);
             chkAll.setText(R.string.seleted_all);
+            chkAll.setChecked(false);
             loadContact = new LoadContact();
             loadContact.execute();
-            Toast.makeText(getApplicationContext(), getResources().getString(R.string.updated) +" "+ String.valueOf(temp) +" "+ getResources().getString(R.string.contact), Toast.LENGTH_LONG).show();
+            Toast.makeText(RevertActivity.this, getResources().getString(R.string.updated) +" "+ String.valueOf(temp) +" "+ getResources().getString(R.string.contact), Toast.LENGTH_LONG).show();
         }
     }
 

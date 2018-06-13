@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="net.vnict.phonecode">
 
     <uses-permission android:name="android.permission.READ_CONTACTS" />
@@ -12,7 +13,6 @@
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -30,13 +30,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".CodeActivity" />
-
-        <provider
-            android:name="com.facebook.FacebookContentProvider"
-            android:authorities="com.facebook.app.FacebookContentProvider{438476189912193}"
-            android:exported="true" />
-
-        <activity android:name=".RevertActivity"></activity>
+        <activity android:name=".RevertActivity" />
     </application>
 
 </manifest>
