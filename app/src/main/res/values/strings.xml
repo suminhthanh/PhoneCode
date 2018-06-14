@@ -31,8 +31,9 @@ Việc chuyển đổi bắt đầu từ ngày 15/9/2018 và kết thúc vào ng
     <string name="mobile_code">Mã mạng</string>
     <string name="search">Tìm kiếm</string>
     <string name="share">Chia sẽ</string>
+    <string name="cant_share">Điện thoại của bạn không hỗ trợ chia sẽ</string>
     <string name="shareBody">Tải ứng dụng Đổi đầu số di động. Ứng dụng sẽ giúp bạn cập nhật tất cả số di động 11 số sang 10 số một cách nhanh chóng và thuận tiện nhất! https://play.google.com/store/apps/details?id=net.vnict.phonecode</string>
     <string name="yes">Có</string>
     <string name="no">Không</string>
-    <string name="version">Version 1.2</string>
+    <string name="version">Version 1.2.1</string>
 </resources>

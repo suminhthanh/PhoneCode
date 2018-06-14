@@ -1,15 +1,12 @@
 package net.vnict.phonecode;
 
-import android.Manifest;
 import android.content.ContentProviderOperation;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v7.app.AlertDialog;
@@ -287,12 +284,19 @@ public class RevertActivity extends AppCompatActivity {
                 startActivity(intent1);
                 break;
             case R.id.btnShare:
-                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
-                sharingIntent.setType("text/plain");
-                String shareBody = getResources().getString(R.string.shareBody);
-                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, getResources().getString(R.string.title));
-                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
-                startActivity(Intent.createChooser(sharingIntent, getResources().getString(R.string.share)));
+                try
+                {
+                    Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                    sharingIntent.setType("text/plain");
+                    String shareBody = getResources().getString(R.string.shareBody);
+                    sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, getResources().getString(R.string.title));
+                    sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+                    startActivity(Intent.createChooser(sharingIntent, getResources().getString(R.string.share)));
+                }
+                catch (Exception e)
+                {
+                    Toast.makeText(RevertActivity.this, R.string.cant_share, Toast.LENGTH_SHORT).show();
+                }
                 break;
         }
     }
@@ -403,15 +407,8 @@ public class RevertActivity extends AppCompatActivity {
                 lvDanhBa.setAdapter(adapterDanhBa);
                 chkAll.setVisibility(View.VISIBLE);
             }
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && checkSelfPermission(Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                requestPermissions(new String[]{
-                        Manifest.permission.CALL_PHONE
-                }, 100);
-            }
-
         }
     }
-
     private class RunAsyncUpdate extends AsyncTask<Integer, Integer,  Void> {
         private int temp;
         @Override

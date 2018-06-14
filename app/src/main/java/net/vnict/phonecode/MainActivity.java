@@ -13,7 +13,6 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.ShareActionProvider;
 import android.view.Menu;
 import android.view.View;
 import android.widget.CheckBox;
@@ -296,12 +295,19 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent1);
                 break;
             case R.id.btnShare:
-                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
-                sharingIntent.setType("text/plain");
-                String shareBody = getResources().getString(R.string.shareBody);
-                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, getResources().getString(R.string.title));
-                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
-                startActivity(Intent.createChooser(sharingIntent, getResources().getString(R.string.share)));
+                try
+                {
+                    Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                    sharingIntent.setType("text/plain");
+                    String shareBody = getResources().getString(R.string.shareBody);
+                    sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, getResources().getString(R.string.title));
+                    sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+                    startActivity(Intent.createChooser(sharingIntent, getResources().getString(R.string.share)));
+                }
+                catch (Exception e)
+                {
+                    Toast.makeText(MainActivity.this, R.string.cant_share, Toast.LENGTH_SHORT).show();
+                }
                 break;
         }
     }
@@ -338,7 +344,8 @@ public class MainActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && checkSelfPermission(Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[]{
                     Manifest.permission.READ_CONTACTS,
-                    Manifest.permission.WRITE_CONTACTS
+                    Manifest.permission.WRITE_CONTACTS,
+                    Manifest.permission.CALL_PHONE
             }, PERMISSIONS_REQUEST_READ_CONTACTS);
         } else {
            // showContact();
@@ -514,11 +521,6 @@ public class MainActivity extends AppCompatActivity {
                 adapterDanhBa = new ContactAdapter(MainActivity.this, R.layout.item, dsDanhBa);
                 lvDanhBa.setAdapter(adapterDanhBa);
                 chkAll.setVisibility(View.VISIBLE);
-            }
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && checkSelfPermission(Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                requestPermissions(new String[]{
-                        Manifest.permission.CALL_PHONE
-                }, 100);
             }
         }
     }
